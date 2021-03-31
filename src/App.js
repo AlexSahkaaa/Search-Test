@@ -1,11 +1,12 @@
-import React, {useState, useEffect} from 'react'
+import React, { useEffect } from 'react'
 import Card from './components/Card'
 import TextInput from './components/TextInput'
+import { useQueryParam } from './useQueryParams'
 import {useHistory} from 'react-router-dom'
 
 import {DATASET} from './data/Data'
 function App() {
-  const [searchName, setSearchName] = useState('')
+  const [searchName, setSearchName] = useQueryParam('name', '')
   const history = useHistory()
   const changeInputHandler = (value) => {
     setSearchName(value)
@@ -26,7 +27,7 @@ function App() {
       <TextInput onChange={changeInputHandler}/>
       {
         DATASET.filter((items) => {
-          if(searchName == "") {
+          if(searchName === "") {
             return items
           } else if (items.toLowerCase().trim().includes(searchName.toLowerCase().trim()))
           {
@@ -39,5 +40,7 @@ function App() {
     </div>
   );
 }
+
+
 
 export default App;
